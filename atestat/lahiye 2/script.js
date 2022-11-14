@@ -1,29 +1,32 @@
 class Message {
-    constructor(author, text) {
-     this.author = author;
-     this.time = new Date();
-     this.text = text;
+    constructor(author, text, createdAt, allMessages) {
+        this.author = author;
+        this.text = text;
+        this.createdAt = createdAt;
     }
-   
     toString() {
-        return `${this.time.getHours()}:${this.time.getMinutes()} ${this.author}: ${this.text}`
-     }
-   }
-   
-   class Messenger {
-    constructor(){
-        this.messages = []
+        return str = this.name + this.text + this.date;
     }
-    show_history(){
-        this.messages.forEach(item=>console.log(item))
+}
+
+class Messenger extends Message {
+    constructor(author, text, createdAt, allMessages) {
+        this.allMessages = [];
+        super(author, text, createdAt);
     }
-    send(author,text){
-        let message = new Message(author, text)
-        this.messages.push(message.toString())
+    show_history() {
+        let now = this.date;
+        this.allMessages.forEach((item) => {
+            console.log(`${item.date.getHours()}:${item.date.getMinutes()}:${item.name}:${item.texter}`);
+        })
     }
-   }
-   
-   const mesaj = new Messenger();
-   mesaj.send('Adil', 'ilk mesaj')
-   mesaj.send('Məryəm', 'ikinci mesaj')
-   mesaj.show_history()
+    send(author, text) {
+        this.allMessages.push({ name: author, texter: text, date: new Date() })
+    }
+}
+
+
+let messenger = new Messenger();
+messenger.send('Kenan', 'first message');
+messenger.send('Huseyn', 'second message');
+messenger.show_history();
